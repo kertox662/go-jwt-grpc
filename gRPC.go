@@ -2,7 +2,6 @@ package bearerware
 
 import (
 	"fmt"
-	"net/http"
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
@@ -25,7 +24,7 @@ func NewJWTAccessFromJWT(jsonKey string) (credentials.Credentials, error) {
 
 func (j jwtAccess) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) {
 	return map[string]string{
-		http.CanonicalHeaderKey(authHeader): fmt.Sprintf("%s%s", strings.Title(bearer), j.jsonKey),
+		authHeader: fmt.Sprintf("%s%s", strings.Title(bearer), j.jsonKey),
 	}, nil
 }
 
@@ -47,7 +46,7 @@ func JWTFromContext(
 	}
 	var tokenStrings []string
 	for k := range md {
-		if http.CanonicalHeaderKey(authHeader) == http.CanonicalHeaderKey(k) {
+		if authHeader == k {
 			tokenStrings = md[k]
 			break
 		}

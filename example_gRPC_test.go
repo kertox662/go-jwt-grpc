@@ -18,7 +18,7 @@ import (
 const (
 	certFile  = "./test_cert/server.pem"
 	keyFile   = "./test_cert/server.key"
-	host      = "localhost"
+	host      = "127.0.0.1"
 	port      = "50051"
 	netString = "tcp"
 )
@@ -72,7 +72,7 @@ func Example_gRPC() {
 
 	// Set up a connection to the server using TLS and a JWT
 	var (
-		tlsCreds, _ = credentials.NewClientTLSFromFile(certFile, host)
+		tlsCreds, _ = credentials.NewClientTLSFromFile(certFile, "localhost")
 		//Create a JWT for  the example
 		tokenString, _ = jwt.New(signingMethod).SignedString(jwtKey)
 		jwtCreds, _    = bearerware.NewJWTAccessFromJWT(tokenString)
@@ -82,6 +82,7 @@ func Example_gRPC() {
 			//included in every request.
 			grpc.WithPerRPCCredentials(jwtCreds),
 			grpc.WithTimeout(5 * time.Second),
+			grpc.WithBlock(),
 		}
 	)
 	conn, err := grpc.Dial(net.JoinHostPort(host, port), dialOpts...)
