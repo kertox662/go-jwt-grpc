@@ -1,6 +1,7 @@
 # bearerware
 
 [![Build Status](http://img.shields.io/travis/ckaznocha/go-JWTBearerware.svg?style=flat)](https://travis-ci.org/ckaznocha/go-JWTBearerware)
+[![Coverage Status](https://coveralls.io/repos/github/ckaznocha/go-JWTBearerware/badge.svg?branch=master)](https://coveralls.io/github/ckaznocha/go-JWTBearerware?branch=master)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://ckaznocha.mit-license.org)
 [![GoDoc](https://godoc.org/github.com/ckaznocha/go-JWTBearerware?status.svg)](https://godoc.org/github.com/ckaznocha/go-JWTBearerware)
 [![Go Report Card](https://goreportcard.com/badge/ckaznocha/go-JWTBearerware)](https://goreportcard.com/report/ckaznocha/go-JWTBearerware)
@@ -52,7 +53,7 @@ gRPC requests.
 ```go
 func WriteAuthError(w http.ResponseWriter, err error)
 ```
-WriteAuthError is a convienence functon for setting the WWW-Authenticate header
+WriteAuthError is a convenience function for setting the WWW-Authenticate header
 and sending an http.Error()
 
 #### type JWTContexter

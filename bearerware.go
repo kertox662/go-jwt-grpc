@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	authHeader = "Authorization"
+	authHeader = "authorization"
 	bearer     = "bearer "
 	bearerLen  = len(bearer)
 

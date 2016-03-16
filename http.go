@@ -33,7 +33,7 @@ func JWTFromHeader(
 }
 
 /*
-WriteAuthError is a convienence functon for setting the WWW-Authenticate header
+WriteAuthError is a convenience function for setting the WWW-Authenticate header
 and sending an http.Error()
 */
 func WriteAuthError(w http.ResponseWriter, err error) {

@@ -1,4 +1,15 @@
 language: go
-
 go:
-  - tip
+- 1.4
+- 1.5
+- 1.6
+- tip
+env:
+    global:
+        secure: ulbX94oxaE9WonCN3/J3DK9vfnzNduvrBTnmnqxV2LU/WOCUvqwLVDM/5HAN1mBV82jalohbhVD3OI+FmjUrNfD9lic7ggKDUohdTjQaasF4AJG6XYyFQf4yRP07mZRa0kqnjNMXL1Ya7QJXdf7bEbxeD0NrBa1JAd5YuUcSfQI+FoNOvOqPfo7ndp6cggGSfn8J/pquR/2NbAN/mVf9X9zaMkBsbV0LT6S78E1/YGk3psKW39cNtYg1bXj4vrO3vQwksdfHQmhzOYzFLJh/QoQuux5mGTvrpYcspWWejsB+xmJQXaR8gIkRbYtXE0WDCcQL9g5MZCrIuk5g1EESMS8pcqRE3zB+NSAHuEYWPHh1J3fLNgLko76Cku49zaDDP/pO4QCg4g+Qz4Wfof1FnhhEGYMYJajNhDNtdE89FTYu8W5MYJzcPSxedljn3Dv1gVdoCXPtj9secJk79pIS2yjGLjuPXSQTEo/IBL4Gq25ilEJsSGflLdWvBKwQkeqp7Wzi6zWoHRVDiB7q+3LqGHyWo4V9p+IUCVHTUiQFpf5fQYWEyxLRz6M4z/J8P2jCiWgpaYekUoGHxK0znjuclfoLu6fipyQbsMY7AgjEWwOf3OK408d3nsRJTJsDeKFz880AOcjXA9+z8K0J/5mPa2mF73adeTTyNSnYCyO2oec=
+before_install:
+- go get github.com/mattn/goveralls
+- go get golang.org/x/tools/cmd/cover
+script:
+- go test -v -race -cpu 1,4 -covermode=count -coverprofile=profile.cov ./
+- goveralls -coverprofile=profile.cov -service=travis-ci

@@ -2,7 +2,6 @@ package bearerware
 
 import (
 	"errors"
-	"net/http"
 	"reflect"
 	"testing"
 
@@ -20,7 +19,7 @@ func TestJWTAccessCredentials(t *testing.T) {
 	}{
 		{
 			token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiIiwic3ViIjoiIn0.IlffGJz3IyFX1ADQ6-jOTQ_0D-K0kuKq5SpB_oirCrk",
-			md:    map[string]string{http.CanonicalHeaderKey(authHeader): "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiIiwic3ViIjoiIn0.IlffGJz3IyFX1ADQ6-jOTQ_0D-K0kuKq5SpB_oirCrk"},
+			md:    map[string]string{authHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiIiwic3ViIjoiIn0.IlffGJz3IyFX1ADQ6-jOTQ_0D-K0kuKq5SpB_oirCrk"},
 		},
 	}
 	for _, test := range tests {
@@ -56,7 +55,7 @@ func TestJWTFromContext(t *testing.T) {
 			{
 				ctx: metadata.NewContext(
 					context.Background(),
-					metadata.New(map[string]string{http.CanonicalHeaderKey(authHeader): "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiIiwic3ViIjoiIn0.IlffGJz3IyFX1ADQ6-jOTQ_0D-K0kuKq5SpB_oirCrk"}),
+					metadata.New(map[string]string{authHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiIiwic3ViIjoiIn0.IlffGJz3IyFX1ADQ6-jOTQ_0D-K0kuKq5SpB_oirCrk"}),
 				),
 				signingMethod: jwt.SigningMethodHS256,
 				err:           nil,
@@ -77,7 +76,7 @@ func TestJWTFromContext(t *testing.T) {
 			{
 				ctx: metadata.NewContext(
 					context.Background(),
-					metadata.New(map[string]string{http.CanonicalHeaderKey(authHeader): "Beare eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiIiwic3ViIjoiIn0.IlffGJz3IyFX1ADQ6-jOTQ_0D-K0kuKq5SpB_oirCrk"}),
+					metadata.New(map[string]string{authHeader: "Beare eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiIiwic3ViIjoiIn0.IlffGJz3IyFX1ADQ6-jOTQ_0D-K0kuKq5SpB_oirCrk"}),
 				),
 				signingMethod: jwt.SigningMethodHS256,
 				err:           errors.New("Authorization header format must be Bearer {token}"),
