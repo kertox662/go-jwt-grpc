@@ -1,3 +1,5 @@
+// Package bearerware provides a library and middleware for using JSON Web
+// Tokens in gRPC and HTTP projects.
 package bearerware
 
 import (
