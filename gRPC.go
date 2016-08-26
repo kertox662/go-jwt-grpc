@@ -15,10 +15,10 @@ type jwtAccess struct {
 }
 
 /*
-NewJWTAccessFromJWT creates a JWT credentials.Credentials which can be used
+NewJWTAccessFromJWT creates a JWT credentials.PerRPCCredentials which can be used
 in gRPC requests.
 */
-func NewJWTAccessFromJWT(jsonKey string) (credentials.Credentials, error) {
+func NewJWTAccessFromJWT(jsonKey string) (credentials.PerRPCCredentials, error) {
 	return jwtAccess{jsonKey}, nil
 }
 
