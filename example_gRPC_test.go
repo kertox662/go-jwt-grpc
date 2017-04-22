@@ -3,6 +3,7 @@ package bearerware_test
 import (
 	"crypto/tls"
 	"fmt"
+	"log"
 	"net"
 	"time"
 
@@ -47,7 +48,11 @@ func (s *server) SayHello(
 		return nil, err
 	}
 	return &pb.HelloReply{
-		Message: fmt.Sprintf("Hello %s! Token signed using %s", in.Name, token.Method.Alg()),
+		Message: fmt.Sprintf(
+			"Hello %s! Token signed using %s",
+			in.Name,
+			token.Method.Alg(),
+		),
 	}, nil
 }
 
@@ -67,7 +72,11 @@ func Example_gRPC() {
 	//Start the server
 	s := grpc.NewServer(opts...)
 	pb.RegisterGreeterServer(s, &server{})
-	go s.Serve(lis)
+	go func() {
+		if err := s.Serve(lis); err != nil {
+			log.Print(err)
+		}
+	}()
 	defer s.Stop()
 
 	// Set up a connection to the server using TLS and a JWT
@@ -89,7 +98,11 @@ func Example_gRPC() {
 	if err != nil {
 		panic(fmt.Sprintf("did not connect: %v", err))
 	}
-	defer conn.Close()
+	defer func() {
+		if err := conn.Close(); err != nil {
+			log.Print(err)
+		}
+	}()
 	c := pb.NewGreeterClient(conn)
 
 	// Contact the server and print out its response.

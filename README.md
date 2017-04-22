@@ -6,9 +6,11 @@
 [![GoDoc](https://godoc.org/github.com/ckaznocha/go-JWTBearerware?status.svg)](https://godoc.org/github.com/ckaznocha/go-JWTBearerware)
 [![Go Report Card](https://goreportcard.com/badge/ckaznocha/go-JWTBearerware)](https://goreportcard.com/report/ckaznocha/go-JWTBearerware)
 
-A Go library to make using [JSON Web Tokens](https://jwt.io/) in gRPC and HTTP requests more convenient. Middleware functions and examples for some popular routers are in the `midleware` directory.
+Package bearerware provides a library and middleware to make using [JSON Web Tokens](https://jwt.io/) in gRPC and HTTP requests more convenient. Middleware functions and examples for popular routers are in the `midleware` directory.
 
 This project was inspire by [auth0/go-jwt-middleware](https://github.com/auth0/go-jwt-middleware).
+
+Requires go1.7 or newer.
 
 For more info see the example files and the [GoDoc](https://godoc.org/github.com/ckaznocha/go-JWTBearerware) page.
 
@@ -27,7 +29,7 @@ func JWTFromContext(
 	signingMethod jwt.SigningMethod,
 ) (*jwt.Token, error)
 ```
-JWTFromContext extracts a valid JWT from a context.Contexts or returns and error
+JWTFromContext **deprecated** use `JWTFromIncomingContext`
 
 #### func  JWTFromHeader
 
@@ -40,13 +42,24 @@ func JWTFromHeader(
 ```
 JWTFromHeader extracts a valid JWT from an http.Request or returns and error
 
+#### func  JWTFromIncomingContext
+
+```go
+func JWTFromIncomingContext(
+	ctx context.Context,
+	keyFunc jwt.Keyfunc,
+	signingMethod jwt.SigningMethod,
+) (*jwt.Token, error)
+```
+JWTFromIncomingContext extracts a valid JWT from a context.Contexts or returns
+and error
+
 #### func  NewJWTAccessFromJWT
 
 ```go
-func NewJWTAccessFromJWT(jsonKey string) (credentials.Credentials, error)
+func NewJWTAccessFromJWT(jsonKey string) (credentials.PerRPCCredentials, error)
 ```
-NewJWTAccessFromJWT creates a JWT credentials.Credentials which can be used in
-gRPC requests.
+NewJWTAccessFromJWT creates a JWT credentials.PerRPCCredentials for use in gRPC requests.
 
 #### func  WriteAuthError
 

@@ -53,7 +53,7 @@ func TestJWTFromContext(t *testing.T) {
 			err           error
 		}{
 			{
-				ctx: metadata.NewContext(
+				ctx: metadata.NewIncomingContext(
 					context.Background(),
 					metadata.New(map[string]string{authHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiIiwic3ViIjoiIn0.IlffGJz3IyFX1ADQ6-jOTQ_0D-K0kuKq5SpB_oirCrk"}),
 				),
@@ -66,7 +66,7 @@ func TestJWTFromContext(t *testing.T) {
 				err:           errors.New("Bearer realm=Restricted"),
 			},
 			{
-				ctx: metadata.NewContext(
+				ctx: metadata.NewIncomingContext(
 					context.Background(),
 					metadata.New(map[string]string{}),
 				),
@@ -74,7 +74,7 @@ func TestJWTFromContext(t *testing.T) {
 				err:           errors.New("Bearer realm=Restricted"),
 			},
 			{
-				ctx: metadata.NewContext(
+				ctx: metadata.NewIncomingContext(
 					context.Background(),
 					metadata.New(map[string]string{authHeader: "Beare eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOm51bGwsImV4cCI6bnVsbCwiYXVkIjoiIiwic3ViIjoiIn0.IlffGJz3IyFX1ADQ6-jOTQ_0D-K0kuKq5SpB_oirCrk"}),
 				),
