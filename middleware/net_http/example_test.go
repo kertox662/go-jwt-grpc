@@ -2,6 +2,7 @@ package bwhttp_test
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/ckaznocha/go-JWTBearerware/middleware/net_http"
@@ -27,7 +28,12 @@ func ExampleJWTHandler() {
 
 		mux = http.NewServeMux()
 	)
-	mux.HandleFunc("/", bwhttp.JWTHandler(handler, jwtKeyFunc, jwt.SigningMethodHS256))
+	mux.HandleFunc(
+		"/",
+		bwhttp.JWTHandler(handler, jwtKeyFunc, jwt.SigningMethodHS256),
+	)
 
-	http.ListenAndServe("localhost:8080", mux)
+	if err := http.ListenAndServe("localhost:8080", mux); err != nil {
+		log.Print(err)
+	}
 }

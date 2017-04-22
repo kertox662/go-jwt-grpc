@@ -1,5 +1,3 @@
-// Package bearerware provides a library and middleware for using JSON Web
-// Tokens in gRPC and HTTP projects.
 package bearerware
 
 import (
@@ -24,7 +22,9 @@ const (
 
 var (
 	errRestricted   = errors.New("Bearer realm=Restricted")
-	errBearerFormat = errors.New("Authorization header format must be Bearer {token}")
+	errBearerFormat = errors.New(
+		"Authorization header format must be Bearer {token}",
+	)
 	errTokenInvalid = errors.New("Token is invalid")
 )
 

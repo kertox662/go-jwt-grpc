@@ -2,6 +2,7 @@ package bwhttprouter_test
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/ckaznocha/go-JWTBearerware/middleware/httprouter"
@@ -11,7 +12,11 @@ import (
 
 func ExampleJWTHandler() {
 	var (
-		handler = func(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
+		handler = func(
+			w http.ResponseWriter,
+			req *http.Request,
+			_ httprouter.Params,
+		) {
 			token, ok := bwhttprouter.JWTContext.ReadJWT(req)
 			if !ok {
 				http.Error(
@@ -28,7 +33,12 @@ func ExampleJWTHandler() {
 
 		router = httprouter.New()
 	)
-	router.GET("/", bwhttprouter.JWTHandler(handler, jwtKeyFunc, jwt.SigningMethodHS256))
+	router.GET(
+		"/",
+		bwhttprouter.JWTHandler(handler, jwtKeyFunc, jwt.SigningMethodHS256),
+	)
 
-	http.ListenAndServe("localhost:8080", router)
+	if err := http.ListenAndServe("localhost:8080", router); err != nil {
+		log.Print(err)
+	}
 }

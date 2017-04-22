@@ -15,14 +15,19 @@ type jwtAccess struct {
 }
 
 /*
-NewJWTAccessFromJWT creates a JWT credentials.PerRPCCredentials which can be used
-in gRPC requests.
+NewJWTAccessFromJWT creates a JWT credentials.PerRPCCredentials for use in gRPC
+requests.
 */
-func NewJWTAccessFromJWT(jsonKey string) (credentials.PerRPCCredentials, error) {
+func NewJWTAccessFromJWT(
+	jsonKey string,
+) (credentials.PerRPCCredentials, error) {
 	return jwtAccess{jsonKey}, nil
 }
 
-func (j jwtAccess) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) {
+func (j jwtAccess) GetRequestMetadata(
+	ctx context.Context,
+	uri ...string,
+) (map[string]string, error) {
 	return map[string]string{
 		authHeader: fmt.Sprintf("%s%s", strings.Title(bearer), j.jsonKey),
 	}, nil
@@ -33,14 +38,26 @@ func (j jwtAccess) RequireTransportSecurity() bool {
 }
 
 /*
-JWTFromContext extracts a valid JWT from a context.Contexts or returns and error
+JWTFromContext **deprecated** use `JWTFromIncomingContext`
 */
 func JWTFromContext(
 	ctx context.Context,
 	keyFunc jwt.Keyfunc,
 	signingMethod jwt.SigningMethod,
 ) (*jwt.Token, error) {
-	md, ok := metadata.FromContext(ctx)
+	return JWTFromIncomingContext(ctx, keyFunc, signingMethod)
+}
+
+/*
+JWTFromIncomingContext extracts a valid JWT from a context.Contexts or returns
+and error
+*/
+func JWTFromIncomingContext(
+	ctx context.Context,
+	keyFunc jwt.Keyfunc,
+	signingMethod jwt.SigningMethod,
+) (*jwt.Token, error) {
+	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		return nil, errRestricted
 	}
