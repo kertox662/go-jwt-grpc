@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ckaznocha/go-JWTBearerware/middleware/net_http"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
+	bwhttp "github.com/kertox662/go-jwt-grpc/middleware/net_http"
 )
 
 func ExampleJWTHandler() {

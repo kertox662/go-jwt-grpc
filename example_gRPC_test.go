@@ -7,8 +7,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/ckaznocha/go-JWTBearerware"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
+	bearerware "github.com/kertox662/go-jwt-grpc"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"

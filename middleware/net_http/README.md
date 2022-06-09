@@ -1,6 +1,6 @@
 # bwhttp
 --
-    import "github.com/ckaznocha/go-JWTBearerware/middleware/net_http"
+    import "github.com/kertox662/go-jwt-grpc/middleware/net_http"
 
 
 ## Usage

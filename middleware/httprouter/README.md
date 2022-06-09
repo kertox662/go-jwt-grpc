@@ -1,6 +1,6 @@
 # bwhttprouter
 --
-    import "github.com/ckaznocha/go-JWTBearerware/middleware/httprouter"
+    import "github.com/kertox662/go-jwt-grpc/middleware/httprouter"
 
 
 ## Usage

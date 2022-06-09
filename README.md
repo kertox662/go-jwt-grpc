@@ -6,6 +6,8 @@
 [![GoDoc](https://godoc.org/github.com/ckaznocha/go-JWTBearerware?status.svg)](https://godoc.org/github.com/ckaznocha/go-JWTBearerware)
 [![Go Report Card](https://goreportcard.com/badge/ckaznocha/go-JWTBearerware)](https://goreportcard.com/report/ckaznocha/go-JWTBearerware)
 
+This fork of [ckaznocha/go-JWTBearerware](https://github.com/ckaznocha/go-JWTBearerware) updates the JWT library to a newer v4.0.0 version, [golang-jwt/jwt](https://github.com/golang-jwt/jwt).
+
 Package bearerware provides a library and middleware to make using [JSON Web Tokens](https://jwt.io/) in gRPC and HTTP requests more convenient. Middleware functions and examples for popular routers are in the `midleware` directory.
 
 This project was inspire by [auth0/go-jwt-middleware](https://github.com/auth0/go-jwt-middleware).
